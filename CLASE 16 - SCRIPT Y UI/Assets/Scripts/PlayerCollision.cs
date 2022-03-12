@@ -19,7 +19,7 @@ public class PlayerCollision : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
            // Debug.Log("GAME OVER");
-            SceneManager.LoadScene("Level1");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         if (other.gameObject.CompareTag("Ground"))

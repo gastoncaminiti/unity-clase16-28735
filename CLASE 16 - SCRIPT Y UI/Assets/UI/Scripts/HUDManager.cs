@@ -10,6 +10,8 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private Text textGemGreen;
     [SerializeField] private Text textGemPink;
 
+    [SerializeField] private GameObject planelGem;
+
     // Update is called once per frame
     void Update()
     {
@@ -24,5 +26,10 @@ public class HUDManager : MonoBehaviour
        textGemGreen.text = "x "+ GemCounts[1];
        textGemPink.text = "x "+ GemCounts[2];
 
+    }
+
+    public void TooglePanel(){
+        //RESPUESTA AL PRESIONAR EL BOTTON
+        planelGem.SetActive(!planelGem.activeSelf);
     }
 }

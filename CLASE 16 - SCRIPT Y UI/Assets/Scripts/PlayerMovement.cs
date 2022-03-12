@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -33,6 +34,8 @@ public class PlayerMovement : MonoBehaviour
 
     private InventoryManager mgInventory;
 
+    [SerializeField] private Text playerNameLabel;
+
     void Start()
     {
         parentBullets = GameObject.Find("DinamycBullets");
@@ -40,6 +43,10 @@ public class PlayerMovement : MonoBehaviour
         rbPlayer = GetComponent<Rigidbody>();
         mgInventory = GetComponent<InventoryManager>();
         transform.position = FindObjectOfType<SavepointsManager>().GetSavePoint(GameManager.instance.lastSP).position;
+
+        playerNameLabel.text = ProfileManager.instance.GetPlayerName();
+        playerNameLabel.enabled = ProfileManager.instance.GetVisibleName();
+
 
     }
     void Update()
@@ -72,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void UseItemInventoryTwo()
     {
-        if (Input.GetKeyDown(KeyCode.H) && mgInventory.InventoryOneHas())
+        if (Input.GetKeyDown(KeyCode.H) && mgInventory.InventoryTwoHas())
         {
             GameObject gem = mgInventory.GetInventoryTwo();
             mgInventory.SeeInventoryTwo();
@@ -82,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void UseItemInventoryThree()
     {
-        if (Input.GetKeyDown(KeyCode.J) && mgInventory.InventoryOneHas())
+        if (Input.GetKeyDown(KeyCode.J) && mgInventory.InventoryThreeHas())
         {
             GameObject gem = mgInventory.GetInventoryThree("Gem");
             mgInventory.SeeInventoryThree();
@@ -200,7 +207,7 @@ public class PlayerMovement : MonoBehaviour
         //1 UN VALOR PARA ROTAR EN Y
         cameraAxisX += Input.GetAxis("Horizontal");
         //2 UN ANGULO A CALCULAR EN FUNCION DEL VALOR DEL PRIMER PASO
-        Quaternion angulo = Quaternion.Euler(0f, cameraAxisX * 0.5f, 0f);
+        Quaternion angulo = Quaternion.Euler(0f, cameraAxisX * ProfileManager.instance.GetMouseSensitivity(), 0f);
         //3 ROTAR
         transform.localRotation = angulo;
     }
